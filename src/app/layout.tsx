@@ -13,9 +13,9 @@ export default function RootLayout({
 }) {
     return <html lang="en" className={s.html} suppressHydrationWarning>
         <head>
-            <title>Siva Parvatham | Generative AI &amp; Agentic AI Engineer</title>
-            <meta name="description" content="Siva Mallikarjun Parvatham is a senior software developer building production-ready generative AI, multi-agent, and RAG systems for financial services." />
-            <meta property="og:title" content="Siva Parvatham | Generative AI & Agentic AI" />
+            <title>Siva Mallikarjun | Personal Professional Site</title>
+            <meta name="description" content="Siva Mallikarjun Parvatham's personal professional site: AI systems, agentic workflows, responsible AI, and selected projects." />
+            <meta property="og:title" content="Siva Mallikarjun | Personal Professional Site" />
             <meta property="og:description" content="Building production-ready agentic AI and RAG systems for real-world problems." />
             <meta property="og:image" content="/siva-profile.png" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&family=Merriweather:ital@0;1&display=optional" />

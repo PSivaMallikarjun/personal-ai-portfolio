@@ -57,9 +57,11 @@ const profiles = [
 type Project = {
     title: string;
     description: string;
-    href?: string;
-    kind: 'llm' | 'models' | 'clearance';
+    href: string;
+    kind: 'llm' | 'models' | 'clearance' | 'drone' | 'bio' | 'assistant' | 'retail' | 'vision' | 'manufacturing';
     label: string;
+    visualTitle?: string;
+    flow?: [string, string, string];
 };
 
 const projects: Project[] = [
@@ -79,13 +81,78 @@ const projects: Project[] = [
     },
     {
         title: 'ClearanceAI',
-        description: 'A multi-agent QA platform designed to plan tests, run them, and help root-cause failures.',
+        description: 'Multi-agent QA automation with Laya confidence scoring, human approval checkpoints, and generated test plans, synthetic data, and execution reports.',
+        href: 'https://github.com/PSivaMallikarjun/ClearanceAI',
         kind: 'clearance',
         label: 'Agentic quality engineering',
     },
+    {
+        title: 'AeroDynamics-X Drone Simulator',
+        description: 'An ultra-realistic 3D quadcopter flight simulator built for immersive flight experiences.',
+        href: 'https://github.com/PSivaMallikarjun/AeroDynamics-X-3D-Drone-Simulator-Game',
+        kind: 'drone',
+        label: '3D simulation · TypeScript',
+        visualTitle: 'QUADCOPTER FLIGHT SIM',
+        flow: ['3D WORLD', 'FLIGHT MODEL', 'PILOT'],
+    },
+    {
+        title: 'BioGuard for Responsible AI',
+        description: 'Explores bio-inspired minimal neural architectures as a defense against prompt injection and jailbreak attacks.',
+        href: 'https://github.com/PSivaMallikarjun/BioGuard-for-Responsible-AI',
+        kind: 'bio',
+        label: 'AI safety · Python',
+        visualTitle: 'RESPONSIBLE AI DEFENSE',
+        flow: ['PROMPT', 'BIO-INSPIRED GUARD', 'SAFE RESPONSE'],
+    },
+    {
+        title: 'LinkedIn AI Responder',
+        description: 'A personal AI agent designed to help draft LinkedIn message replies in the author\'s own voice.',
+        href: 'https://github.com/PSivaMallikarjun/Siva-LinkedIn-AI-Responder',
+        kind: 'assistant',
+        label: 'Personal AI agent · Python',
+        visualTitle: 'VOICE-MATCHED ASSISTANT',
+        flow: ['MESSAGE', 'PERSONAL CONTEXT', 'DRAFT REPLY'],
+    },
+    {
+        title: 'Super-market AI',
+        description: 'An AI retail intelligence platform for bringing smarter insights to supermarket operations.',
+        href: 'https://github.com/PSivaMallikarjun/Super-market-AI',
+        kind: 'retail',
+        label: 'Retail intelligence · TypeScript',
+        visualTitle: 'RETAIL INTELLIGENCE',
+        flow: ['STORE DATA', 'AI INSIGHTS', 'DECISIONS'],
+    },
+    {
+        title: 'GuardianVision AI',
+        description: 'Real-time CCTV intelligence for traffic-incident detection, emergency coordination, and insurance workflows.',
+        href: 'https://github.com/PSivaMallikarjun/GuardianVision-AI',
+        kind: 'vision',
+        label: 'Vision AI · TypeScript',
+        visualTitle: 'INCIDENT RESPONSE',
+        flow: ['VIDEO', 'INCIDENT DETECTED', 'COORDINATE'],
+    },
+    {
+        title: 'AccidentGuard AI',
+        description: 'An end-to-end agentic response concept for detecting road incidents and coordinating emergency and insurance support.',
+        href: 'https://github.com/PSivaMallikarjun/AccidentGuard-AI',
+        kind: 'vision',
+        label: 'Agentic response · TypeScript',
+        visualTitle: 'ROAD-SAFETY WORKFLOW',
+        flow: ['ROAD EVENT', 'AGENT ROUTING', 'RESPONSE'],
+    },
+    {
+        title: 'Panchakarma Manufacturing Agent',
+        description: 'A multi-agent manufacturing workflow for coordinating production across stone, wood, metal, tools, and gold.',
+        href: 'https://github.com/PSivaMallikarjun/Panchakarma-Manufacturing-Agent',
+        kind: 'manufacturing',
+        label: 'Multi-agent manufacturing',
+        visualTitle: 'COORDINATED PRODUCTION',
+        flow: ['WORK ORDER', 'SPECIALIST AGENTS', 'PRODUCTION'],
+    },
 ];
 
-const renderProjectCard = (project: Project): ReactNode => {
+const renderProjectCard = (project: Project, index: number): ReactNode => {
+    const flow = project.flow;
     const contents = <>
         <div className={`${s.projectVisual} ${s[project.kind]}`}>
             {project.kind === 'llm' && <div className={s.neuralGraphic} aria-hidden="true">
@@ -111,12 +178,22 @@ const renderProjectCard = (project: Project): ReactNode => {
                 <div className={s.qaPanel}><small>TEST PLAN</small><strong>Quality review</strong><span className={s.qaLine} /><span className={s.qaLine} /><span className={s.qaLineShort} /></div>
                 <div className={s.qaPanel}><small>ROOT-CAUSE ANALYSIS</small><strong>Failure investigation</strong><div className={s.qaPass}>Analysis complete <span>✓</span></div></div>
             </div>}
-            <span className={s.visualIndex}>0{projects.indexOf(project) + 1}</span>
+            {project.visualTitle && flow && <div className={s.projectSchematic} aria-hidden="true">
+                <span className={s.schematicEyebrow}>{project.label}</span>
+                <strong>{project.visualTitle}</strong>
+                <div className={s.schematicFlow}>
+                    {flow.map((step, stepIndex) => <span key={step}>
+                        {step}
+                        {stepIndex < flow.length - 1 && <i aria-hidden="true">→</i>}
+                    </span>)}
+                </div>
+            </div>}
+            <span className={s.visualIndex}>{String(index + 1).padStart(2, '0')}</span>
         </div>
         <div className={s.projectMeta}>
             <div className={s.projectMetaTop}>
                 <h2>{project.title}</h2>
-                {project.href && <span className={s.projectArrow} aria-hidden="true">↗</span>}
+                <span className={s.projectArrow} aria-hidden="true">↗</span>
             </div>
             <p>{project.description}</p>
             <span className={s.projectLabel}>{project.label}</span>
@@ -124,13 +201,15 @@ const renderProjectCard = (project: Project): ReactNode => {
     </>;
 
     const className = s.projectCard;
-    if (project.href) {
+    if (project.href.startsWith('/')) {
         return <Link className={className} href={project.href}>
             {contents}
         </Link>;
     }
 
-    return <article className={className}>{contents}</article>;
+    return <a className={className} href={project.href} target="_blank" rel="noopener noreferrer">
+        {contents}
+    </a>;
 };
 
 export const HomePage: FC = () => {
@@ -153,7 +232,7 @@ export const HomePage: FC = () => {
             </header>
 
             <div className={s.introBody}>
-                <p className={s.eyebrow}><span /> Hyderabad, India <i /> Open to senior AI roles</p>
+                <p className={s.eyebrow}><span /> Hyderabad, India <i /> Open to AI Lead roles</p>
                 <h1 id="intro-heading">I build AI systems people can <span>trust.</span></h1>
                 <p className={s.introText}>
                     I&apos;m Siva, a software developer with 4+ years of experience, including 2+ years in generative AI. I build agentic AI and RAG for financial services—turning complex ideas into useful, production-minded products.
@@ -198,12 +277,15 @@ export const HomePage: FC = () => {
             </div>
             <div className={s.showcaseHeading}>
                 <span>SELECTED WORK</span>
-                <span className={s.scrollHint}>Scroll to explore <i aria-hidden="true">↓</i></span>
+                <div className={s.showcaseActions}>
+                    <a href="https://github.com/PSivaMallikarjun?tab=repositories" target="_blank" rel="noopener noreferrer">More on GitHub <i aria-hidden="true">↗</i></a>
+                    <span className={s.scrollHint}>Scroll to explore <i aria-hidden="true">↓</i></span>
+                </div>
             </div>
             <div className={s.showcaseWindow}>
                 <div className={s.showcaseLane}>
                     <div className={s.showcaseTrack}>
-                        {projects.map(project => <div key={project.title}>{renderProjectCard(project)}</div>)}
+                        {projects.map((project, index) => <div key={project.title}>{renderProjectCard(project, index)}</div>)}
                     </div>
                 </div>
             </div>
