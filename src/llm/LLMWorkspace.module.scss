@@ -1,0 +1,140 @@
+.workspace {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+    background: #0a1114;
+}
+
+.appHeader {
+    z-index: 3;
+    display: flex;
+    min-height: 58px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0 1.15rem;
+    border-bottom: 1px solid rgba(215, 232, 224, 0.13);
+    background: #0a1114;
+    color: #eef3ef;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: inherit;
+    text-decoration: none;
+
+    > span:last-child {
+        display: grid;
+        gap: 2px;
+    }
+
+    strong {
+        font-size: 0.78rem;
+        font-weight: 650;
+    }
+
+    small {
+        color: #8d9b95;
+        font-size: 0.68rem;
+    }
+}
+
+.brandMark {
+    display: grid;
+    width: 31px;
+    height: 31px;
+    place-items: center;
+    border: 1px solid rgba(197, 240, 109, 0.55);
+    border-radius: 9px;
+    color: #c5f06d;
+    font-size: 0.68rem;
+    font-weight: 750;
+    letter-spacing: 0.02em;
+}
+
+.headerActions {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.homeLink {
+    color: #b4c0bb;
+    font-size: 0.75rem;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+        color: #c5f06d;
+    }
+
+    span {
+        margin-left: 0.25rem;
+    }
+}
+
+.tabs {
+    z-index: 2;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 0.4rem;
+    padding: 0.45rem 0.8rem;
+    border-bottom: 1px solid rgba(215, 232, 224, 0.12);
+    background: #10191c;
+}
+
+.tab,
+.activeTab {
+    display: inline-flex;
+    min-height: 35px;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 0.38rem 0.72rem;
+    color: #a7b3ae;
+    font-size: 0.76rem;
+    cursor: pointer;
+    transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+
+    span {
+        color: #75867e;
+        font-size: 0.65rem;
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+.tab {
+    background: transparent;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.045);
+        color: #edf2ee;
+    }
+}
+
+.activeTab {
+    border-color: rgba(197, 240, 109, 0.22);
+    background: rgba(197, 240, 109, 0.09);
+    color: #e8f4dc;
+
+    span {
+        color: #c5f06d;
+    }
+}
+
+@media (max-width: 520px) {
+    .appHeader {
+        min-height: 54px;
+        padding: 0 0.7rem;
+    }
+
+    .tabs {
+        padding: 0.4rem 0.6rem;
+    }
+}

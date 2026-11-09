@@ -1,20 +1,11 @@
 import React from 'react';
-import { LayerView } from '@/src/llm/LayerView';
-import { InfoButton } from '@/src/llm/WelcomePopup';
+import { LLMWorkspace } from '@/src/llm/LLMWorkspace';
 
 export const metadata = {
-  title: 'LLM Visualization',
-  description: 'A 3D animated visualization of an LLM with a walkthrough.',
+  title: 'AI Model Atlas | Siva Parvatham',
+  description: 'Browse 732 searchable AI model profiles and their interactive learning visualizations, with a token walkthrough available.',
 };
 
-import { Header } from '@/src/homepage/Header';
-
 export default function Page() {
-    return <>
-        <Header title="LLM Visualization">
-            <InfoButton />
-        </Header>
-        <LayerView />
-        <div id="portal-container"></div>
-    </>;
+    return <LLMWorkspace initialView="models" />;
 }

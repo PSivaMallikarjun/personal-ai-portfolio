@@ -1,77 +1,79 @@
 import React from 'react';
+import Link from 'next/link';
+import { IProgramState } from '../Program';
 import { useProgramState } from '../Sidebar';
-import clsx from 'clsx';
+import { modelProfiles } from '@/src/model-catalog/models';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExpand, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { Vec3 } from '@/src/utils/vector';
 import { Mat4f } from '@/src/utils/matrix';
+import s from '../LayerView.module.scss';
 
-export const ModelSelectorToolbar: React.FC<{
-}> = () => {
-    let progState = useProgramState();
+function activateExample(progState: IProgramState, index: number) {
+    const example = progState.examples[index] ?? progState.mainExample;
+    if (!example.enabled) example.enabled = true;
+    progState.currExampleId = index;
+    progState.camera.desiredCamera = example.camera;
+    progState.markDirty();
+}
+
+function frameExample(progState: IProgramState) {
+    const example = progState.examples[progState.currExampleId] ?? progState.mainExample;
+    progState.camera.desiredCamera = example.camera;
+    progState.markDirty();
+}
+
+function focusExample(progState: IProgramState) {
+    const example = progState.examples[progState.currExampleId] ?? progState.mainExample;
+    const layout = example.layout ?? progState.layout;
+    const obj = layout.residual0;
+    const modelTarget = new Vec3(obj.x, obj.y, obj.z);
+    const modelMtx = progState.camera.modelMtx.mul(Mat4f.fromTranslation(example.offset));
+    const center = modelMtx.mulVec3Proj(modelTarget);
+    const zoom = progState.currExampleId === -1 ? 0.7 : 4;
+    progState.camera.desiredCamera = { center, angle: new Vec3(270, 4.5, zoom) };
+    progState.markDirty();
+}
+
+export const ModelSelectorToolbar: React.FC = () => {
+    const progState = useProgramState();
 
     function makeButton(egIndex: number) {
-
-        let example = progState.examples[egIndex] ?? progState.mainExample;
-
-        let isEnabled = example.enabled;
-        let isActive = progState.currExampleId === egIndex;
+        const example = progState.examples[egIndex] ?? progState.mainExample;
+        const isActive = progState.currExampleId === egIndex;
 
         function handleClick() {
-            if (!isEnabled) {
-                example.enabled = true;
-            }
-            progState.currExampleId = egIndex;
-            progState.camera.desiredCamera = example.camera;
-            progState.markDirty();
+            activateExample(progState, egIndex);
         }
 
-        return <div className={clsx('m-2 px-2 py-1 rounded shadow cursor-pointer hover:bg-blue-300', isActive ? 'bg-blue-200' : 'bg-white')} onClick={handleClick}>
+        return <button
+            type="button"
+            className={isActive ? s.modelChoiceActive : s.modelChoice}
+            aria-pressed={isActive}
+            key={egIndex}
+            onClick={handleClick}
+        >
             {example.name}
-        </div>;
+        </button>;
     }
 
-    function onExpandClick() {
-        let example = progState.examples[progState.currExampleId] ?? progState.mainExample;
-        progState.camera.desiredCamera = example.camera;
-        progState.markDirty();
-    }
-
-    function onMagnifyClick() {
-        let example = progState.examples[progState.currExampleId] ?? progState.mainExample;
-        let layout = example.layout ?? progState.layout;
-
-        // new Vec3(3.347, 48.000, -2.634), new Vec3(270.000, 4.500, 1.199)
-
-        // new Vec3(-1.771, 0.750, -4.470), new Vec3(270.000, 4.500, 0.739)
-
-        let obj = layout.residual0;
-        let modelTarget = new Vec3(obj.x, obj.y, obj.z);
-        let modelMtx = progState.camera.modelMtx.mul(Mat4f.fromTranslation(example.offset))
-
-        let center = modelMtx.mulVec3Proj(modelTarget);
-        let zoom = progState.currExampleId === -1 ? 0.7 : 4;
-        progState.camera.desiredCamera = {
-            center, angle: new Vec3(270, 4.5, zoom),
-        };
-        progState.markDirty();
-
-    }
-
-    return <div className='absolute top-0 left-0 flex flex-col'>
-        <div className='mt-2 ml-2 flex flex-row'>
+    return <div className={s.viewerToolbar} aria-label="3D model controls">
+        <div className={s.modelChoices} role="group" aria-label="Select a walkthrough example">
             {makeButton(0)}
             {makeButton(-1)}
             {makeButton(1)}
             {makeButton(2)}
         </div>
-        <div className='ml-2 flex flex-row'>
-            <div className={clsx('m-2 p-2 bg-white min-w-[2rem] flex justify-center rounded shadow cursor-pointer hover:bg-blue-300')} onClick={onExpandClick}>
+        <Link className={s.allModelsLink} href="/llm/models">
+            Browse all {modelProfiles.length} model visualizations <span aria-hidden="true">↗</span>
+        </Link>
+        <div className={s.modelTools} role="group" aria-label="View controls">
+            <button type="button" className={s.modelToolButton} aria-label="Fit model" title="Fit model" onClick={() => frameExample(progState)}>
                 <FontAwesomeIcon icon={faExpand} />
-            </div>
-            <div className={clsx('m-2 p-2 bg-white min-w-[2rem] flex justify-center rounded shadow cursor-pointer hover:bg-blue-300')} onClick={onMagnifyClick}>
+            </button>
+            <button type="button" className={s.modelToolButton} aria-label="Focus model" title="Focus model" onClick={() => focusExample(progState)}>
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
-            </div>
+            </button>
         </div>
     </div>;
 

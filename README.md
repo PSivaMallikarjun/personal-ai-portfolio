@@ -1,18 +1,15 @@
 
-# Brendan Bycroft's Home Page & Projects
+# Siva Mallikarjun Parvatham — Portfolio & Model Atlas
 
-This repository contains my (Brendan's) homepage, as well as a number of non-trivial projects.
+This workspace contains Siva Mallikarjun Parvatham's portfolio and interactive AI model projects. The LLM walkthrough originated in [Brendan Bycroft's `llm-viz` project](https://github.com/bbycroft/llm-viz); its MIT license and copyright notice are retained. The portfolio and the Model Atlas presentation are maintained separately in this workspace.
 
-They are kept in a single repository for ease of deployment, as well as sharing a bunch of js utils
-which are otherwise a pain to share around.
-
-**License:** MIT (see [`LICENSE`](LICENSE)), except the personal homepage (`src/homepage/`, `public/me.jpeg`)
-and third-party assets (fonts, RISC-V tests, etc.), which retain their original rights/licenses.
+**License:** See [`LICENSE`](LICENSE) for the upstream MIT terms. Third-party assets and any explicitly excluded upstream materials retain their original rights and licenses.
 
 ## Projects
 
 The main projects are:
-* LLM Visualization: 3D interactive model of a GPT-style LLM network running inference.
+* Token walkthrough: an interactive explanation of a small GPT-style model.
+* AI Model Atlas: a source-linked catalog of model families, versions, modalities, and research systems.
 * [WIP] CPU Simulation: A 2D digital schematic editor with full a execution model, showcasing a simple
   RISC-V based CPU
 
@@ -27,6 +24,14 @@ of the letters A, B, and C. This is the demo example model from Andrej Karpathy'
 
 The renderer also supports visualizing arbitrary sized networks, and works with the smaller gpt2
 size, although the weights aren't downloaded (it's 100's of MBs).
+
+### AI Model Atlas
+
+The Model Atlas under `/llm/models` converts the named model families, generations, modalities, and specialist systems in the user-provided *Worldwide AI Model Catalogue 2026* into individual searchable profiles. Each profile has its own responsive, interactive 3D learning illustration: a conceptual flow for learning purposes, not a reconstruction of any provider's implementation. Model briefs summarize intended tasks, input/output modalities, verification links, and access notes. As the supplied PDF explains, this is a curated discovery catalogue—not an exhaustive census of every checkpoint, endpoint, or fine-tune worldwide. Verify current IDs, availability, and license details in the linked provider sources.
+
+The separate Atlas, its illustrations, and portfolio interface are designed for this project. The token walkthrough is based on Brendan Bycroft's `llm-viz`; its upstream MIT license and copyright notices are retained.
+The model catalog is integrated into the LLM visualization workspace. The legacy `/models` route
+redirects to `/llm/models`.
 
 ### CPU Simulation (WIP; not exposed yet!)
 

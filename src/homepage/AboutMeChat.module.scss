@@ -1,0 +1,501 @@
+$ink: #1c211f;
+$muted: #737b76;
+$line: #e7e9e6;
+$green: #2f6048;
+$mint: #d7edc1;
+
+.aboutSection {
+    min-height: min(860px, 100svh);
+    padding: clamp(2.6rem, 6vw, 5rem) clamp(1rem, 5vw, 4.5rem);
+    background:
+        radial-gradient(ellipse at 86% 15%, rgba(196, 218, 183, 0.21), transparent 34rem),
+        #f4f5f2;
+    color: $ink;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.sectionIntro {
+    width: min(1120px, 100%);
+    margin: 0 auto 1.4rem;
+
+    > p {
+        margin: 0 0 0.5rem;
+        color: #64736a;
+        font-size: 0.66rem;
+        font-weight: 700;
+        letter-spacing: 0.13em;
+    }
+
+    h2 {
+        margin: 0;
+        color: #17211b;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: clamp(1.9rem, 4vw, 3rem);
+        font-weight: 500;
+        letter-spacing: -0.05em;
+    }
+
+    > span {
+        display: block;
+        margin-top: 0.45rem;
+        color: #66716b;
+        font-size: 0.88rem;
+    }
+}
+
+.chatWindow {
+    display: grid;
+    width: min(1120px, 100%);
+    height: min(610px, 70svh);
+    min-height: 480px;
+    grid-template-columns: minmax(205px, 250px) minmax(0, 1fr);
+    overflow: hidden;
+    margin: 0 auto;
+    border: 1px solid #e0e4df;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 24px 70px rgba(37, 51, 42, 0.1);
+}
+
+.sidebar {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    border-right: 1px solid $line;
+    padding: 1rem 0.8rem;
+    background: #fafbf9;
+}
+
+.sidebarBrand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.2rem 0.35rem 1.2rem;
+
+    > span:last-child {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+    }
+
+    strong {
+        color: #27322c;
+        font-size: 0.82rem;
+    }
+
+    small {
+        color: #818a84;
+        font-size: 0.69rem;
+    }
+}
+
+.brandMark,
+.answerMark {
+    display: grid;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 50%;
+    background: #e5eddc;
+    color: $green;
+    font-size: 0.66rem;
+    font-weight: 750;
+}
+
+.brandMark {
+    width: 31px;
+    height: 31px;
+}
+
+.sidebarLabel {
+    margin: 0.2rem 0 0.45rem;
+    padding: 0 0.4rem;
+    color: #8a938d;
+    font-size: 0.61rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.topicList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.18rem;
+}
+
+.topic,
+.activeTopic {
+    display: flex;
+    min-height: 37px;
+    align-items: center;
+    gap: 0.55rem;
+    border: 0;
+    border-radius: 7px;
+    padding: 0 0.55rem;
+    color: #59635d;
+    font-size: 0.75rem;
+    text-align: left;
+    cursor: pointer;
+    transition: background 140ms ease, color 140ms ease;
+
+    > span {
+        width: 16px;
+        color: #77847c;
+        font-size: 0.85rem;
+        text-align: center;
+    }
+
+    &:hover {
+        background: #f0f2ef;
+        color: $ink;
+    }
+}
+
+.activeTopic {
+    background: #e9eee7;
+    color: #293d30;
+    font-weight: 650;
+
+    > span {
+        color: $green;
+    }
+}
+
+.sidebarNote {
+    margin-top: auto;
+    border-top: 1px solid $line;
+    padding: 0.9rem 0.35rem 0.15rem;
+
+    > span {
+        color: #87918a;
+        font-size: 0.59rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+    }
+
+    p {
+        margin: 0.35rem 0 0;
+        color: #7a837d;
+        font-size: 0.68rem;
+        line-height: 1.5;
+    }
+}
+
+.conversation {
+    display: flex;
+    min-width: 0;
+    min-height: 0;
+    flex-direction: column;
+    background: #fff;
+}
+
+.conversationHeader {
+    display: flex;
+    min-height: 49px;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid #f0f1ef;
+    padding: 0 1.2rem;
+
+    > span {
+        color: #858e88;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.11em;
+    }
+
+    a {
+        color: $green;
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+    }
+}
+
+.conversationBody {
+    display: flex;
+    min-height: 0;
+    flex: 1 1 auto;
+    flex-direction: column;
+    overflow: auto;
+    padding: 1.3rem clamp(1rem, 4vw, 3rem);
+}
+
+.welcome {
+    width: min(620px, 100%);
+    margin: auto;
+    text-align: center;
+}
+
+.welcomeMark {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    margin: 0 auto 1rem;
+    border: 1px solid #dfe7d9;
+    border-radius: 15px;
+    background: #f3f7ef;
+    color: $green;
+    font-size: 0.78rem;
+    font-weight: 750;
+}
+
+.welcomeEyebrow {
+    margin: 0;
+    color: #79867e;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+}
+
+.welcome h3 {
+    margin: 0.55rem 0 0;
+    color: #262c28;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+}
+
+.welcomeText {
+    margin: 0.6rem 0 1.2rem;
+    color: #7a827d;
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+.suggestions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+
+    button {
+        display: flex;
+        min-height: 52px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.55rem;
+        border: 1px solid #e7eae6;
+        border-radius: 9px;
+        padding: 0.65rem 0.7rem;
+        background: #fff;
+        color: #535e57;
+        font-size: 0.72rem;
+        line-height: 1.35;
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 140ms ease, background 140ms ease, transform 140ms ease;
+
+        span {
+            flex: 0 0 auto;
+            color: #829087;
+        }
+
+        &:hover {
+            transform: translateY(-1px);
+            border-color: #b7c8b7;
+            background: #fbfcfa;
+        }
+    }
+}
+
+.messageList {
+    width: min(670px, 100%);
+    margin: auto;
+}
+
+.messagePair + .messagePair {
+    margin-top: 1.4rem;
+}
+
+.userMessage {
+    width: fit-content;
+    max-width: 88%;
+    margin: 0 0 1rem auto;
+    border: 1px solid #ebeeea;
+    border-radius: 13px 13px 4px 13px;
+    padding: 0.75rem 0.9rem;
+    background: #f4f6f3;
+    color: #303a33;
+    font-size: 0.82rem;
+    line-height: 1.5;
+}
+
+.answerMessage {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+
+    p {
+        margin: 0;
+        padding-top: 0.28rem;
+        color: #444e48;
+        font-size: 0.86rem;
+        line-height: 1.7;
+    }
+}
+
+.answerMark {
+    width: 28px;
+    height: 28px;
+    margin-top: 0.1rem;
+    font-size: 0.58rem;
+}
+
+.composer {
+    flex: 0 0 auto;
+    margin: 0 1.2rem 1rem;
+    border: 1px solid #e5e8e4;
+    border-radius: 12px;
+    padding: 0.7rem 0.8rem 0.55rem;
+    background: #fff;
+    box-shadow: 0 5px 20px rgba(27, 38, 31, 0.06);
+
+    > p {
+        margin: 0.45rem 0 0;
+        color: #929a94;
+        font-size: 0.62rem;
+    }
+}
+
+.composerLabel {
+    color: #828b85;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.composerInput {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 0.3rem;
+
+    input {
+        width: 100%;
+        min-width: 0;
+        min-height: 36px;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: #303a33;
+        font-size: 0.79rem;
+
+        &::placeholder {
+            color: #a0a7a2;
+        }
+    }
+
+    button {
+        width: 31px;
+        height: 31px;
+        flex: 0 0 auto;
+        border: 0;
+        border-radius: 50%;
+        background: $green;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+
+        &:disabled {
+            background: #bfc9bf;
+            cursor: not-allowed;
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .aboutSection {
+        padding: 2.7rem 0.8rem;
+    }
+
+    .sectionIntro {
+        padding: 0 0.3rem;
+    }
+
+    .chatWindow {
+        height: auto;
+        min-height: 680px;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto minmax(520px, 1fr);
+    }
+
+    .sidebar {
+        border-right: 0;
+        border-bottom: 1px solid $line;
+        padding: 0.7rem;
+    }
+
+    .sidebarBrand,
+    .sidebarLabel,
+    .sidebarNote {
+        display: none;
+    }
+
+    .topicList {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 0.1rem;
+        scrollbar-width: thin;
+    }
+
+    .topic,
+    .activeTopic {
+        min-width: max-content;
+        min-height: 34px;
+        padding: 0 0.6rem;
+        font-size: 0.68rem;
+    }
+
+    .topic > span,
+    .activeTopic > span {
+        display: none;
+    }
+
+    .conversation {
+        min-height: 0;
+    }
+
+    .conversationHeader {
+        min-height: 42px;
+        padding: 0 0.8rem;
+    }
+
+    .conversationBody {
+        padding: 1rem 0.8rem;
+    }
+
+    .welcome {
+        margin: auto 0;
+    }
+
+    .welcome h3 {
+        font-size: 1.5rem;
+    }
+
+    .suggestions {
+        grid-template-columns: minmax(0, 1fr);
+
+        button {
+            min-height: 43px;
+        }
+    }
+
+    .composer {
+        margin: 0 0.7rem 0.7rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .topic,
+    .activeTopic,
+    .suggestions button {
+        transition: none;
+    }
+}

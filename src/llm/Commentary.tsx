@@ -312,7 +312,7 @@ export function walkthroughToParagraphs(wt: IWalkthrough, nodes: INode[]) {
 
         function pushParagraph() {
             if (paraItems.length) {
-                res.push(<p key={keyId++}>{paraItems}</p>);
+                res.push(<div key={keyId++} className={s.commentaryParagraph}>{paraItems}</div>);
                 paraItems = [];
                 paraKeyId = 0;
             }
