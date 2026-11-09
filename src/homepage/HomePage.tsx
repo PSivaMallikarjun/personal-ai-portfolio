@@ -219,7 +219,7 @@ export const HomePage: FC = () => {
             <header className={s.identity}>
                 <Image
                     className={s.avatar}
-                    src="/siva-profile.png"
+                    src="/siva-profile-2026.png"
                     alt=""
                     width={44}
                     height={44}

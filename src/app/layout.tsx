@@ -17,7 +17,7 @@ export default function RootLayout({
             <meta name="description" content="Siva Mallikarjun Parvatham's personal professional site: AI systems, agentic workflows, responsible AI, and selected projects." />
             <meta property="og:title" content="Siva Mallikarjun | Personal Professional Site" />
             <meta property="og:description" content="Building production-ready agentic AI and RAG systems for real-world problems." />
-            <meta property="og:image" content="/siva-profile.png" />
+            <meta property="og:image" content="/siva-profile-2026.png" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&family=Merriweather:ital@0;1&display=optional" />
         </head>
         <body className={s.body} suppressHydrationWarning>{children}</body>
